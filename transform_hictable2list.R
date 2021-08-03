@@ -1,5 +1,5 @@
 
-transform_hictable2list <- function(data_table, replace_zero = FALSE, limit_size = NA, window_size = 10, cores = NA){
+transform_hictable2list <- function(data_table, replace_zero = FALSE, limit_size = NA, window_size = NA, cores = NA){
 
 # Find gaps between consevutive loci
 
@@ -29,7 +29,8 @@ transform_hictable2list <- function(data_table, replace_zero = FALSE, limit_size
         contact_table[,1] <- as.character(contact_table[,1])         
         
 # Specify column positions to extract for each Hi-C row depending on full/restricted triangle  
-
+        
+        if (is.na(window_size)){window_size <- 0}
         if (is.na(limit_size)){
                 col_start <- c(
                         rep(NA, times = 2*window_size + 1),
