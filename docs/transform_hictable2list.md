@@ -28,7 +28,7 @@ A non-negative integer. The desired length of a log2 mean ratio vector extracted
 Default: FALSE
 
 `window_size`  
-A non-negative integer. The desired length of Moving Average window that is used at log2 mean ratio computation stage. Recommended to specify when `data_table` contains large scale genomic data (large region, chromosome or genome-wide) as it removes Hi-C rows that are excluded from the further analysis. Has to be specified when `limit_size` is specified. Ignored if NA.
+A non-negative integer. The desired length of Moving Average window that is used at log2 mean ratio computation stage. Recommended to specify when `data_table` contains large scale genomic data (large region, chromosome or genome-wide) as it removes Hi-C rows that are excluded from the further analysis. Has to be specified when `limit_size` is specified. Ignored if NA.  
 Default: FALSE
 
 `cores`  
