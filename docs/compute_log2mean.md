@@ -30,4 +30,5 @@ Default: NA.
 
 ### Output
 
-A list where each element named as row locus and contains a data.frame with three columns: `col_locus` is the column locus name, column two is `col_ind` is the column locus index within the Hi-C matrix and `log2mean` is the log2 mean ratio computed at column locus position at specified row locus. If the specific data.frame contains only single row (NA, NA, NA) it means that the number of column positions within the row is not enough to compute the log2 mean ratios. Note that the locus names are stored in the following format `chr_start_end`. 
+A list where each element named as row locus and contains a data.frame with three columns: `col_locus` is the column locus name, `col\_ind` is the column locus index within the Hi-C matrix and `log2mean` is the log2 mean ratio computed at column locus position at specified row locus. If the specific data.frame contains only single row (NA, NA, NA) it means that the number of column positions within the row is not enough to compute the log2 mean ratios. Note that the locus names are stored in the following format `chr_start_end`.
+
