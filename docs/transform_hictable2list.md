@@ -6,6 +6,8 @@ Transforms the input Hi-C table into a list where each element represents the in
 
 In case when we call TADs on a large scale genomic region (chromosome or genome-wise), we do not need the whole row to be extracted as it requires more memory and more processing time - we need only the part of the matrix that is close to the main diagonal and the size of this part is related to the maximum TAD width that we expect to detect. The large maximum TAD width leads to the large regions at the start and the end of chromatin, where TADs cannot be detected. However, when we work with relatively short part of chromosome, like the testing genomic region, it can become critical, as we extermely reduce the number of observations extracted, so we prefer to work with the whole unrestricted lower triangle matrix instead.
 
+![Matrix restriction](/img/img1.pdf)
+
 ### Usage
 
 ```{r}
