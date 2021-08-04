@@ -61,16 +61,14 @@ call_leftTADedge <- function(data_list, replace_zero = TRUE, window_size = 10, b
         if (do_correction){data_prob <- p.adjust(data_prob, method = "bonferroni")}
         
 # Combine and return results
-
+        
         result <- data.frame(
                 "col_locus" = names(col_list)[data_max[,1]],
                 "col_index" = data_max[,1],
-                "strength" = data_max[,2],
                 "p_adj" = data_prob)
-        if (!is.na(prob_limit)){
-                result$is_significant <- 0
-                result[result[,4] <= prob_limit & !is.na(result[,4]), 5] <- 1}
-        if (!show_all){result <- result[result[,5] == 1,-5]}
+        result$is_significant <- 0
+        result[result[,3] <= prob_limit & !is.na(result[,3]), 4] <- 1
+        if (!show_all){result <- result[result[,4] == 1,-4]}
         return(result)
 }
 
