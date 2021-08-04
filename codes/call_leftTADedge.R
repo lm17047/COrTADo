@@ -43,9 +43,15 @@ call_leftTADedge <- function(data_list, replace_zero = TRUE, window_size = 10, b
                 
 # Call local maxima: smooth, define candidate positions, validate through the test and do multi-test correction
 
-        data_smooth <- .call_smooth(
-                data_table = data.frame("X" = col_table[,2], "Y" = col_table[,5]), 
-                bandwidth_size = bandwidth_size)
+        if (is.na(bandwidth_size)){
+                data_smooth <- .call_smooth(
+                        data_table = data.frame("X" = col_table[,2], "Y" = col_table[,5]), 
+                        bandwidth_size = bandwidth_size)
+        } else {
+            
+                data_smooth <- data.frame(
+                        "X" = unique(col_table[,2]),
+                        "Y" = unname(unlist(lapply(X = split(col_table[,5], col_table[,2]), FUN = mean, na.rm = TRUE))))}
         data_max <- .call_maxima(data_table = data_smooth)
         if (is.na(cores)){
                 data_prob <- unlist(lapply(
