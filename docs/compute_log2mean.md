@@ -2,6 +2,8 @@
 
 ### Description
 
+Compute the measure called log2 mean ratio that is further used to identify the difference between the mean values on the regions that are on the right and on the left from each Hi-C bin. For each column position (where appropriate), we extract the interactions within the window of selected size on the right-hand-side and on the left-hand-side and compute mean values withing these windows. Then, we divide right-hand-side mean over left-hand-side mean and take log2 of the result to get the log2 mean ratio at the analysed column position. 
+
 ### Usage
 
 ```{r}
