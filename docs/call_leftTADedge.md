@@ -2,7 +2,11 @@
 
 ### Description
 
+Those column positions that have a local maximum of the log2 mean ratio within several neighbouring Hi-C rows are more likely to be left TAD edges positions. Then, left TAD edge positioning is based on four steps. First, extract all log2 mean ratios column-wise, then smooth the log2 mean ratio using Gaussian Kernel smoothing and detect the column positions that are candidates to be local maximum. The probability of a candidate position to be a local maximum is assessed by comparing the distributions of log2 mean ratios at the candidate position with the regions on the right and left by Wilcoxon Rank-Sum Test. As the multiple tests performed on all candidate positions, the Bonferroni correction is applied. The positions that have adjusted p-values to be below the stated threshold are most likely to be left TAD edges. 
 
+<p align="center">
+<img src="https://github.com/lm17047/TADedge_calling/blob/active/docs/img/img1.png" width="800">
+</p> 
 
 ### Usage
 
