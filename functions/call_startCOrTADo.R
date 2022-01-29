@@ -173,4 +173,3 @@ call_startCOrTADo <- function(data_list, replace_zero = FALSE, window_size, band
         } else {result <- c(NA, NA, NA, NA)}
         return(result)
 }
- 
