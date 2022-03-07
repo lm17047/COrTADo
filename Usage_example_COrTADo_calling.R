@@ -1,4 +1,6 @@
 
+# Usage example is based on dpnII raw dataset
+
 ############################################ 
 ############################  SET PARAMETERS
 ############################################ 
@@ -69,33 +71,33 @@ print(paste0("Region ", region, " is processing."))
         
 ############################################ COrTADo start
 
-        rds_name <- paste0("BG3_", prefix, region, "_list_per_row_rds")
+        rds_name <- paste0("BG3_", prefix, "_", region, "_list_per_row_rds")
         start_time <- Sys.time()
         hic_region_list_per_row <- transform_hictable2list(
                 data_table = select_df, direction = "row", replace_zero = FALSE, resolution = NA,
                 limit_size = select_limit_size, cores = select_n_cores)
         end_time <- Sys.time()
         timing_table[chr_index, 2] <- as.numeric(difftime(end_time, start_time, units= "mins"))
-        saveRDS(hic_region_list_per_row, rds_name)
+        saveRDS(hic_region_list_per_row, paste0(direcotry, rds_name))
         rm(hic_region_list_per_row, rds_name, start_time, end_time)
         
 ############################################ COrTADo end
 
-        rds_name <-  paste0("BG3_", region, "_list_per_col_rds")
+        rds_name <-  paste0("BG3_", prefix, "_", region, "_list_per_col_rds")
         start_time <- Sys.time()
         hic_region_list_per_col <- transform_hictable2list(
                 data_table = select_df, direction = "column", replace_zero = FALSE, resolution = NA,
                 limit_size = select_limit_size, cores = select_n_cores)
         end_time <- Sys.time()
         timing_table[chr_index, 3] <- as.numeric(difftime(end_time, start_time, units= "mins"))
-        saveRDS(hic_region_list_per_col, rds_name)
+        saveRDS(hic_region_list_per_col, paste0(direcotry, rds_name))
         rm(hic_region_list_per_col, rds_name, start_time, end_time)
 
-        rm(select_df, start_time, end_time)
+        rm(select_df)
 }
 
-rm(df, start_time, end_time)
-saveRDS(timing_table, "timing_table_rds")
+rm(df)
+saveRDS(timing_table, paste0(directory, "timing_table_rds"))
 
 ############################################ END OF SECTION
 
@@ -112,18 +114,18 @@ directory <- paste0("~/cortado/", prefix, "/tads/processing/")
 for (chr_index in 1:length(chr_vector)){
 region <- chr_vector[chr_index]
 print(paste0("Region ", region, " is processing."))
-        rds_name <- paste0("BG3_", prefix, region, "_list_per_row_rds")
+        rds_name <- paste0("BG3_", prefix, "_", region, "_list_per_row_rds")
         hic_region_list_per_row <- readRDS(paste0(directory, rds_name))
         rm(rds_name)
 
-        rds_name <- paste0("BG3_", prefix, region, "_log2mean_list_per_row_rds")
+        rds_name <- paste0("BG3_", prefix, "_", region, "_log2mean_list_per_row_rds")
         start_time <- Sys.time()
         log2mean_list_per_row <- compute_log2mean(
                 data_list = hic_region_list_per_row, window_size = select_window_size, 
                 replace_zero = FALSE, cores = select_n_cores)        
         end_time <- Sys.time()
         timing_table[chr_index,4] <- as.numeric(difftime(end_time, start_time, units= "mins"))
-        saveRDS(log2mean_list_per_row, paste0(rds_name))
+        saveRDS(log2mean_list_per_row, paste0(direcotry, rds_name))
         rm(log2mean_list_per_row, hic_region_list_per_row, rds_name, start_time, end_time)
 }
 
@@ -132,22 +134,22 @@ print(paste0("Region ", region, " is processing."))
 for (chr_index in 1:length(chr_vector)){
 region <- chr_vector[chr_index]
 print(paste0("Region ", region, " is processing."))
-        rds_name <- paste0("BG3_", prefix, region, "_list_per_col_rds")
+        rds_name <- paste0("BG3_", prefix, "_", region, "_list_per_col_rds")
         hic_region_list_per_col <- readRDS(paste0(directory, rds_name))
         rm(rds_name)
 
-        rds_name <- paste0("BG3_", prefix, region, "_log2mean_list_per_col_rds")
+        rds_name <- paste0("BG3_", prefix, "_", region, "_log2mean_list_per_col_rds")
         start_time <- Sys.time()
         log2mean_list_per_col <- compute_log2mean(
                 data_list = hic_region_list_per_col, window_size = select_window_size, 
                 replace_zero = FALSE, cores = select_n_cores)        
         end_time <- Sys.time()
         timing_table[chr_index, 5] <- as.numeric(difftime(end_time, start_time, units= "mins"))
-        saveRDS(log2mean_list_per_row, paste0(rds_name))
+        saveRDS(log2mean_list_per_row, paste0(direcotry, rds_name))
         rm(log2mean_list_per_col, hic_region_list_per_col, rds_name, start_time, end_time)
 }
 
-saveRDS(timing_table, "timing_table_rds")
+saveRDS(timing_table, paste0(directory, "timing_table_rds"))
 
 ############################################ END OF SECTION
 
@@ -164,7 +166,7 @@ directory <- paste0("~/cortado/", prefix, "/tads/processing/")
 for (chr_index in 1:length(chr_vector)){
 region <- chr_vector[chr_index]
 print(paste0("Region ", region, " is processing."))
-        rds_name <- paste0("BG3_", prefix, region, "_log2mean_list_per_row_rds")
+        rds_name <- paste0("BG3_", prefix, "_", region, "_log2mean_list_per_row_rds")
         log2mean_list_per_row <- readRDS(paste0(directory, rds_name))
         rm(rds_name)
 
@@ -178,7 +180,7 @@ print(paste0("Region ", region, " is processing."))
                 test_depth_step = select_window_size, cores = select_n_cores)
         end_time <- Sys.time()
         timing_table[chr_index, 6] <- as.numeric(difftime(end_time, start_time, units= "mins"))
-        saveRDS(startCOrTADo_table, paste0(rds_name))
+        saveRDS(startCOrTADo_table, paste0(directory, rds_name))
         rm(log2mean_list_per_row, startCOrTADo_table, rds_name, start_time, end_time)
 }
 
@@ -187,11 +189,11 @@ print(paste0("Region ", region, " is processing."))
 for (chr_index in 1:length(chr_vector)){
 region <- chr_vector[chr_index]
 print(paste0("Region ", region, " is processing."))
-        rds_name <- paste0("BG3_", prefix, region, "_log2mean_list_per_col_rds")
+        rds_name <- paste0("BG3_", prefix, "_", region, "_log2mean_list_per_col_rds")
         log2mean_list_per_row <- readRDS(paste0(directory, rds_name))
         rm(rds_name)
 
-        rds_name <- paste0("BG3_", prefix, region, "_endCOrTADo_table_rds")
+        rds_name <- paste0("BG3_", prefix, "_", region, "_endCOrTADo_table_rds")
         start_time <- Sys.time()
         endCOrTADo_table <- call_endCOrTADo(
                 data_list = log2mean_list_per_col, replace_zero = FALSE, 
@@ -201,11 +203,11 @@ print(paste0("Region ", region, " is processing."))
                 test_depth_step = select_window_size, cores = select_n_cores)
         end_time <- Sys.time()
         timing_table[chr_index, 7] <- as.numeric(difftime(end_time, start_time, units= "mins"))
-        saveRDS(endCOrTADo_table, paste0(rds_name))
+        saveRDS(endCOrTADo_table, paste0(directory, rds_name))
         rm(log2mean_list_per_col, endCOrTADo_table, rds_name, start_time, end_time)
 }
 
-saveRDS(timing_table, "timing_table_rds")
+saveRDS(timing_table, paste0(directory, "timing_table_rds"))
 
 ############################################ END OF SECTION
 
