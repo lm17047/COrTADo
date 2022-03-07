@@ -46,7 +46,7 @@ call_endCOrTADo <- function(data_list, replace_zero = FALSE, window_size, bandwi
         if (do_prob_correction){
                 result[,7] <- p.adjust(result[,6], method = "bonferroni")
                 p_index <- 7} else {p_index <- 6}
-        if (is.na(prob_limit) & is.na(prob_limit)){
+        if (is.na(prob_limit) & is.na(es_limit)){
                 result$is_significant <- NA
         } else {
                 if (!is.na(prob_limit)){
